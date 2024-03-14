@@ -16,6 +16,8 @@ public class UserDetailsController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
+
     @GetMapping("/getdata")
     public ResponseEntity<List<UserDetails>> getAllUserDetails() {
         try {
