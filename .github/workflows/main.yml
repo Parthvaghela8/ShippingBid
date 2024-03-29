@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+  Version: 2.0.0
+  DB_API: ${{env.DB_API}}
+  DB_USER : ${{env.DB_USER}}
+  DB_KEY : ${{env.DB_KEY}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,11 +26,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y maven
-      - name: Set up environment variables
-        run: |
-          echo "export DB_API=${{ env.DB_API }}" >> $GITHUB_ENV
-          echo "export DB_USER=${{ env.DB_USER }}" >> $GITHUB_ENV
-          echo "export DB_KEY=${{ env.DB_KEY }}" >> $GITHUB_ENV
       - name: Build
         run: mvn clean package 
       - name: Upload JAR as artifact
