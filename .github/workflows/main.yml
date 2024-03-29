@@ -22,9 +22,9 @@ jobs:
           sudo apt-get install -y maven
       - name: Build
         env:
-         DB_API:  ${{ env.DB_API }}
-         DB_USER:  ${{ env.DB_USER }}
-         DB_KEY: ${{ env.DB_KEY }}
+         DB_API: ${DB_API}
+         DB_USER: ${DB_USER}
+         DB_KEY: ${DB_KEY}
         run: mvn clean package 
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v2
