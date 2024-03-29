@@ -7,9 +7,9 @@ on:
 
 env:
   Version: 2.0.0
-  DB_API: ${{env.DB_API}}
-  DB_USER : ${{env.DB_USER}}
-  DB_KEY : ${{env.DB_KEY}}
+  DB_API: ${{secrets.DB_API}}
+  DB_USER : ${{secrets.DB_USER}}
+  DB_KEY : ${{secrets.DB_KEY}}
 
 jobs:
   build:
