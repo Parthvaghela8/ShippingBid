@@ -1,0 +1,26 @@
+@startuml
+entity "users" as users_entity
+entity "user_details" as user_details_entity
+entity "shippers" as shippers_entity
+entity "customers" as customers_entity
+entity "shipment_categories" as shipment_categories_entity
+entity "states" as states_entity
+entity "cities" as cities_entity
+entity "addresses" as addresses_entity
+entity "shipments" as shipments_entity
+entity "bids" as bids_entity
+entity "feedback" as feedback_entity
+entity "final_shipper_for_shipment" as final_shipper_for_shipment_entity
+
+users_entity -- user_details_entity : "1 to 1"
+users_entity --> shippers_entity : "1 to 0..1" : has
+users_entity --> customers_entity : "1 to 0..1" : has
+cities_entity --> addresses_entity : "1 to *" : has
+states_entity <-- cities_entity : "many to 1" : is a
+addresses_entity --> shipments_entity : "1 to *" : has
+shipment_categories_entity <-- shipments_entity : "many to 1" : is a
+shipments_entity --> bids_entity : "1 to *" : has
+shipments_entity --> feedback_entity : "1 to *" : has
+customers_entity --> shipments_entity : "1 to *" : has
+bids_entity -- final_shipper_for_shipment_entity : "1 to 1" : has
+@enduml

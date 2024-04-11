@@ -1,0 +1,165 @@
+@startuml
+package "Tables & Services" {
+    package "Tables" {
+        class users {
+            user_id INT
+            email String
+        }
+
+        class user_details {
+            user_id INT
+            first_name String
+            last_name String
+            gender String
+            date_of_birth DATE
+            contact_number NUMERIC
+            user_id INT
+        }
+
+        class shippers {
+            shipper_id INT
+            user_id INT
+        }
+
+        class customers {
+            customer_id INT
+            user_id INT
+        }
+
+        class shipment_categories {
+            category_id INT
+            category_name String
+            description String
+        }
+
+        class states {
+            state_id INT
+            state_name String
+        }
+
+        class cities {
+            city_id INT
+            city_name String
+            state_id INT
+        }
+
+        class addresses {
+            address_id INT
+            street_address String
+            city_id INT
+            state_id INT
+            postal_code NUMERIC
+        }
+
+        class shipments {
+            shipment_id INT
+            shipment_date DATETIME
+            delivery_date DATETIME
+            max_bid_amount MONEY
+            bid_start_time DATETIME
+            bid_end_time DATETIME
+            image_url String
+            origin_address_id INT
+            destination_address_id INT
+            category_id INT
+            description String
+            shipment_status String
+            customer_id INT
+        }
+
+        class bids {
+            bid_id INT
+            shipment_id INT
+            shipper_id INT
+            bid_amount MONEY
+            bid_status String
+            bid_time DATETIME
+        }
+
+        class feedback {
+            feedback_id INT
+            shipment_id INT
+            customer_id INT
+            shipper_id INT
+            rating INT
+            comment String
+        }
+
+        class final_shipper_for_shipment {
+            final_deal_id INT
+            bid_id INT
+        }
+    }
+  
+    package "Services" #LightGreen {
+        class AddressService {
+            + updateAddress(Long, Address): Address
+            + createAddress(Address): Address
+            + getAddressById(Long): Address
+            + deleteAddress(Long): void
+            allAddresses: List<Address>
+        }
+
+        class BidService {
+            + getBidById(Long): Bids
+            + updateBid(Long, Bids): Bids
+            + deleteBid(Long): void
+            + createBid(Bids): Bids
+            allBids: List<Bids>
+        }
+
+        class CustomerService {
+            + getCustomerById(Long): Customer
+            + getCustomerDetailsByUserId(Long): Customer
+            allCustomers: List<Customer>
+        }
+
+        class FeedbackService {
+            + getFeedbackById(Long): Feedback
+            + updateFeedback(Long, Feedback): Feedback
+            + createFeedback(Feedback): Feedback
+            + deleteFeedback(Long): void
+            allFeedback: List<Feedback>
+        }
+
+        class FinalShipperForShipmentService {
+            + getFinalShipperDetails(Long): FinalShipperForShipment
+        }
+
+        class ShipmentCategoryService {
+            + createCategory(ShipmentCategory): ShipmentCategory
+            + getCategoryById(Long): ShipmentCategory
+            + updateCategory(Long, ShipmentCategory): ShipmentCategory
+            allCategories: List<ShipmentCategory>
+        }
+
+        class ShipperService {
+            + getShipperById(Long): Shipper
+            + getShipperDetailsByUserId(Long): Shipper
+            allShippers: List<Shipper>
+        }
+
+        class UserDetailsService {
+            + getUserDetailsById(Long): UserDetails
+            + updateUserDetails(Long, UserDetails): UserDetails
+            + createUserDetails(UserDetails): UserDetails
+            + deleteUserDetails(Long): void
+            allUserDetails: List<UserDetails>
+        }
+    }
+
+    AddressService --> addresses : uses
+    BidService --> bids : uses
+    BidService --> shipments : uses
+    CustomerService --> customers : uses
+    CustomerService --> users : uses
+    FeedbackService --> feedback : uses
+    FinalShipperForShipmentService --> final_shipper_for_shipment : uses
+    ShipmentCategoryService --> shipment_categories : uses
+    ShipmentCategoryService --> shipments : uses
+    ShipperService --> shippers : uses
+    ShipperService --> users : uses
+    UserDetailsService --> users : uses
+    UserDetailsService --> user_details : uses
+}
+@enduml
