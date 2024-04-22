@@ -10,7 +10,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String Home(){
-        return "<h2>Welcome To Bid Wheels</h2>";
+        return "<h2>Welcome To Bid Wheels project</h2>";
 
     }
 
