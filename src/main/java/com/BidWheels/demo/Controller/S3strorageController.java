@@ -32,7 +32,7 @@ public class S3strorageController {
         log.info("Received request to upload photo to Profiles folder. File Name: {}, Content Type: {}, File Size: {} bytes",
                 fileName, file.getContentType(), file.getSize());
 
-        String fileUrl = s3storage.uploadPhotoImage(file);
+        String fileUrl = s3storage.uploadPhotoToProfiles(file);
 
         if (fileUrl != null) {
             return "Photo uploaded successfully to Profiles folder. URL: " + fileUrl;
