@@ -66,7 +66,7 @@ public class S3storage {
     private String uploadPhoto(String bucketName, String keyName, MultipartFile file) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType(file.getContentType());
+            metadata.setContentType("image/jpeg");
             metadata.setContentDisposition("inline");
             s3Client.putObject(new PutObjectRequest(bucketName, keyName, file.getInputStream(), metadata));
 
