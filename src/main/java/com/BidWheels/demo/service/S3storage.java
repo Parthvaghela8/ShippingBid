@@ -67,6 +67,7 @@ public class S3storage {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(file.getContentType());
+            metadata.setContentDisposition("inline");
             s3Client.putObject(new PutObjectRequest(bucketName, keyName, file.getInputStream(), metadata));
 
             // Construct and return the URL of the uploaded file
