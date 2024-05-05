@@ -27,7 +27,7 @@ public class S3strorageController {
     }
 
     @PostMapping("/upload")
-    public String uploadPhotoToProfiles(@RequestPart("file") MultipartFile file) {
+    public String uploadPhotoToImage(@RequestPart("file") MultipartFile file) {
         String fileName = file.getOriginalFilename();
         log.info("Received request to upload photo to Profiles folder. File Name: {}, Content Type: {}, File Size: {} bytes",
                 fileName, file.getContentType(), file.getSize());
