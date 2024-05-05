@@ -22,7 +22,7 @@ public class S3storage {
     public String uploadPhotoImage(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         String keyName = "image/" + fileName;
-        return uploadPhoto(keyName, file);
+        return uploadPhoto("s3instancepro ",keyName, file);
     }
 
 
@@ -42,15 +42,15 @@ public class S3storage {
 //        return downloadFile("unique-kindnesskettle-image", keyName);
 //    }
 
-    private String uploadPhoto(String keyName, MultipartFile file) {
+    private String uploadPhoto(String bucketName,String keyName, MultipartFile file) {
         try {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(file.getContentType());
-            metadata.setContentDisposition("inline");
-            s3Client.putObject(new PutObjectRequest("s3instancepro", keyName, file.getInputStream(), metadata));
+            s3Client.putObject(new PutObjectRequest(bucketName, keyName, file.getInputStream(), metadata));
 
             // Construct and return the URL of the uploaded file
-            return s3Client.getUrl("s3instancepro", keyName).toString();
+            String fileUrl = s3Client.getUrl(bucketName, keyName).toString();
+            return fileUrl;
 
         } catch (IOException e) {
             e.printStackTrace();
