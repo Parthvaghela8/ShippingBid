@@ -35,7 +35,7 @@ public class S3strorageController {
         String fileUrl = s3storage.uploadPhotoToProfiles(file);
 
         if (fileUrl != null) {
-            return "Photo uploaded successfully to Profiles folder. URL: " + fileUrl;
+            return fileUrl;
         } else {
             return "Failed to upload photo to Profiles folder.";
         }
