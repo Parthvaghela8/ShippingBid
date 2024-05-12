@@ -16,6 +16,16 @@ public class BidService {
     @Autowired
     private BidsRepository bidRepository;
 
+    public List<Bids> getBidsByShipmentId(Long shipmentId) {
+        try {
+            return bidRepository.findByShipmentId(shipmentId);
+        } catch (Exception e) {
+            // Handle exceptions (e.g., log, throw custom exception)
+            throw new RuntimeException("Error getting bids by shipment ID: " + shipmentId, e);
+        }
+    }
+
+
     public List<Bids> getAllBids() {
         try {
             return bidRepository.findAll();

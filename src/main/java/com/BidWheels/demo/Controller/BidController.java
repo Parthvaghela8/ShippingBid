@@ -16,6 +16,20 @@ public class BidController {
     @Autowired
     private BidService bidService;
 
+    @GetMapping("/shipment/{shipmentId}")
+    public ResponseEntity<List<Bids>> getBidsByShipmentId(@PathVariable Long shipmentId) {
+        try {
+            List<Bids> bids = bidService.getBidsByShipmentId(shipmentId);
+            if (!bids.isEmpty()) {
+                return ResponseEntity.ok(bids);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null); // Internal Server Error
+        }
+    }
+
     @GetMapping("/getdata")
     public ResponseEntity<List<Bids>> getAllBids() {
         try {
