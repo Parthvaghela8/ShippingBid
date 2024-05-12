@@ -32,16 +32,17 @@ public class AddressController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PostMapping("/save")
-    public ResponseEntity<Address> createAddress(@RequestBody Address address) {
+    public ResponseEntity<Integer> createAddress(@RequestBody Address address) {
         Address createdAddress = addressService.createAddress(address);
         if (createdAddress != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
+            // Return the ID of the created address
+            return ResponseEntity.status(HttpStatus.CREATED).body(Math.toIntExact(createdAddress.getAddressId()));
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Address> updateAddress(@PathVariable("id") Integer id, @RequestBody Address addressDetails) {
