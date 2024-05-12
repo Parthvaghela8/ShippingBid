@@ -76,8 +76,8 @@ public class ShipmentController {
             if (shipmentOptional.isPresent()) {
                 Shipment shipment = shipmentOptional.get();
                 // Fetch related entities
-                Optional<Address> originAddressOptional = addressRepository.findById(shipment.getOriginAddressId());
-                Optional<Address> destinationAddressOptional = addressRepository.findById(shipment.getDestinationAddressId());
+                Optional<Address> originAddressOptional = addressRepository.findById(Math.toIntExact(shipment.getOriginAddressId()));
+                Optional<Address> destinationAddressOptional = addressRepository.findById(Math.toIntExact(shipment.getDestinationAddressId()));
                 Optional<ShipmentCategory> categoryOptional = shipmentcategoryRepository.findById(shipment.getCategoryId());
                 Optional<Customer> customerOptional = customerRepository.findById(shipment.getCustomerId());
 

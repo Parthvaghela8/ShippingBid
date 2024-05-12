@@ -22,14 +22,12 @@ public class Address {
     @Column(name = "street_address", nullable = false)
     private String streetAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "city_id", nullable = false)
-    private City city;
+    @Column(name = "city")
+    private String city;
 
-    @ManyToOne
-    @JoinColumn(name = "state_id", nullable = false)
-    private State state;
-
+    @Column(name = "state")
+    private String state;
+    
     @Column(name = "postal_code", nullable = false)
     private Long postalCode;
 

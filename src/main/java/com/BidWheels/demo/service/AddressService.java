@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -17,7 +18,7 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public Address getAddressById(Long id) {
+    public Address getAddressById(Integer id) {
         return addressRepository.findById(id).orElse(null);
     }
 
@@ -25,22 +26,21 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
-    public Address updateAddress(Long id, Address updatedAddress) {
-        Address existingAddress = addressRepository.findById(id).orElse(null);
-
-        if (existingAddress != null) {
-            existingAddress.setStreetAddress(updatedAddress.getStreetAddress());
-            existingAddress.setCity(updatedAddress.getCity());
-            existingAddress.setState(updatedAddress.getState());
-            existingAddress.setPostalCode(updatedAddress.getPostalCode());
-
+    public Address updateAddress(Integer id, Address addressDetails) {
+        Optional<Address> optionalAddress = addressRepository.findById(id);
+        if (optionalAddress.isPresent()) {
+            Address existingAddress = optionalAddress.get();
+            existingAddress.setStreetAddress(addressDetails.getStreetAddress());
+            existingAddress.setCity(addressDetails.getCity());
+            existingAddress.setState(addressDetails.getState());
+            existingAddress.setPostalCode(addressDetails.getPostalCode());
             return addressRepository.save(existingAddress);
         } else {
-            return null; // Handle address not found
+            return null;
         }
     }
 
-    public void deleteAddress(Long id) {
+    public void deleteAddress(Integer id) {
         addressRepository.deleteById(id);
     }
 }

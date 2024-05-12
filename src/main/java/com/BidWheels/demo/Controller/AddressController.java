@@ -3,6 +3,7 @@ package com.BidWheels.demo.Controller;
 import com.BidWheels.demo.Model.Address;
 import com.BidWheels.demo.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/addresses")
+
 public class AddressController {
 
     @Autowired
@@ -22,9 +24,8 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Address> getAddressById(@PathVariable Long id) {
+    public ResponseEntity<Address> getAddressById(@PathVariable("id") Integer id) {
         Address address = addressService.getAddressById(id);
-
         if (address != null) {
             return ResponseEntity.ok(address);
         } else {
@@ -35,23 +36,26 @@ public class AddressController {
     @PostMapping("/save")
     public ResponseEntity<Address> createAddress(@RequestBody Address address) {
         Address createdAddress = addressService.createAddress(address);
-        return ResponseEntity.ok(createdAddress);
+        if (createdAddress != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-//
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<Address> updateAddress(@PathVariable Long id, @RequestBody Address updatedAddress) {
-//        Address address = addressService.updateAddress(id, updatedAddress);
-//
-//        if (address != null) {
-//            return ResponseEntity.ok(address);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
-//
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Object> deleteAddress(@PathVariable Long id) {
-//        addressService.deleteAddress(id);
-//        return ResponseEntity.ok().build();
-//    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Address> updateAddress(@PathVariable("id") Integer id, @RequestBody Address addressDetails) {
+        Address updatedAddress = addressService.updateAddress(id, addressDetails);
+        if (updatedAddress != null) {
+            return ResponseEntity.ok(updatedAddress);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAddress(@PathVariable("id") Integer id) {
+        addressService.deleteAddress(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.BidWheels.demo.Model.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface AddressRepository extends JpaRepository<Address, Long> {
+@Repository
+public interface AddressRepository extends JpaRepository<Address, Integer> {
+    // You can add custom query methods if needed
 }
