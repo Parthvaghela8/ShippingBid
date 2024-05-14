@@ -8,7 +8,7 @@ public class ShippingWarsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShippingWarsApplication.class, args);
-		System.out.println("hello ");
+		System.out.println("hello");
 	}
 
 }
