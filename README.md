@@ -22,7 +22,7 @@ This Terraform script automates the provisioning of an Amazon EC2 instance in th
 
 - **Private Key Storage**: Saves the generated RSA private key to a local file.
 
-#### `aws_instance`
+#### `aws_instance` 
 
 - **EC2 Instance**: Defines an EC2 instance with the specified AMI, instance type, and key pair.
 
