@@ -25,7 +25,12 @@ public class ShipperService {
 
     public Shipper getShipperDetailsByUserId(Long userId) {
         return (Shipper) shipperRepository.findByUserId(userId).orElse(null);
+
+
     }
 
-
+    public Shipper createShipper(Shipper shipper) {
+        // Implement any business logic if needed
+        return shipperRepository.save(shipper);
+    }
 }
