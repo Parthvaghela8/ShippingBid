@@ -10,6 +10,8 @@ env:
   DB_API: ${{secrets.DB_API}}
   DB_USER : ${{secrets.DB_USER}}
   DB_KEY : ${{secrets.DB_KEY}}
+  GIT_ID : ${{secrets.GIT_ID}}
+  GIT_SID : ${{secrets.GIT_SID}}
 
 jobs:
   build:
@@ -80,5 +82,7 @@ jobs:
             export DB_API=$DB_API
             export DB_USER=$DB_USER
             export DB_KEY=$DB_KEY
+            export GIT_ID=$GIT_ID
+            export GIT_SID=$GIT_SID
             aws s3 cp /home/ec2-user/target/demo-0.0.1-SNAPSHOT.jar s3://s3instancepro/demo-${VERSION}.jar
  
