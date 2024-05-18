@@ -1,10 +1,8 @@
 package com.BidWheels.demo.Controller;
 
 import com.BidWheels.demo.Model.Customer;
-import com.BidWheels.demo.Model.User;
 import com.BidWheels.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +16,23 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/save")
-    public Customer customer(@RequestBody Customer customer) {
-        return customerService.addCustomer(customer);
+    public ResponseEntity<Long> saveCustomer(@RequestBody Customer customer) {
+        // Log the received customer object and its userId
+        System.out.println("Received Customer: " + customer);
+        System.out.println("Received userId: " + customer.getUserId());
+
+        // Ensure userId is set in the Customer object
+        if (customer.getUserId() == null) {
+            return ResponseEntity.badRequest().body(Long.valueOf("userId must be provided"));
+        }
+
+        // Call service method to save the customer
+        Customer savedCustomer = customerService.addCustomer(customer);
+
+        // Return the customerId in the response body
+        return ResponseEntity.ok(savedCustomer.getCustomerId());
     }
+
 
 //    @PostMapping("/add")
 //    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) {

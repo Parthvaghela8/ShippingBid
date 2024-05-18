@@ -1,5 +1,6 @@
 package com.BidWheels.demo.service;
 
+import com.BidWheels.demo.Model.Customer;
 import com.BidWheels.demo.Model.Shipper;
 import com.BidWheels.demo.Repositry.ShipperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class ShipperService {
 
     }
 
-    public Shipper createShipper(Shipper shipper) {
-        // Implement any business logic if needed
+
+    public Shipper addShipper(Shipper shipper) {
         return shipperRepository.save(shipper);
     }
 }
