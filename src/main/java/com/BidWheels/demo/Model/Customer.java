@@ -22,9 +22,9 @@ public class Customer {
     @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private UserDetails userDetails;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//    private UserDetails userDetails;
 
     // Constructors, getters, setters...
 }

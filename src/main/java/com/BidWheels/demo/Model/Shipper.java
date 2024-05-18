@@ -20,10 +20,10 @@ public class Shipper {
 
     @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
-    private UserDetails userDetails;
+//
+//    @OneToOne
+//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable = false, updatable = false)
+//    private UserDetails userDetails;
 
     // Constructors, getters, setters...
 }
