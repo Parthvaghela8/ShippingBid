@@ -1,5 +1,6 @@
 package com.BidWheels.demo.Controller;
 
+import com.BidWheels.demo.Model.Customer;
 import com.BidWheels.demo.Model.Shipper;
 import com.BidWheels.demo.service.ShipperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,23 @@ public class ShipperController {
             // Log the exception or handle it as needed
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving shipper details"); // Internal Server Error
         }
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<Long> saveShipper(@RequestBody Shipper shipper) {
+        // Log the received customer object and its userId
+        System.out.println("Received Customer: " + shipper);
+        System.out.println("Received userId: " + shipper.getUserId());
+
+        // Ensure userId is set in the Customer object
+        if (shipper.getUserId() == null) {
+            return ResponseEntity.badRequest().body(Long.valueOf("userId must be provided"));
+        }
+
+        // Call service method to save the customer
+        Shipper savedShipper = shipperService.addShipper(shipper);
+
+        // Return the customerId in the response body
+        return ResponseEntity.ok(savedShipper.getShipperId());
     }
 }
