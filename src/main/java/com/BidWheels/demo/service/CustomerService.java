@@ -15,7 +15,8 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository)
+    {
         this.customerRepository = customerRepository;
     }
 
@@ -35,6 +36,14 @@ public class CustomerService {
 
     public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
+    }
+
+    public boolean deleteCustomer(Long id) {
+        if (customerRepository.existsById(id)) {
+            customerRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 //    public User addUser(User user) {
