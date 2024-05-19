@@ -143,6 +143,19 @@ public class ShipmentController {
         }
     }
 
+    @PutMapping("/status/{id}")
+    public Shipment updateShipmentStatus(@PathVariable("id") Long shipmentId,
+                                         @RequestBody Map<String, String> requestBody) {
+        String newStatus = requestBody.get("status");
+
+        Shipment shipment = shipmentRepository.findById(shipmentId)
+                .orElseThrow(() -> new RuntimeException("Shipment not found with id: " + shipmentId));
+
+        shipment.setShipmentStatus(newStatus);
+
+        return shipmentRepository.save(shipment);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteShipment(@PathVariable Long id) {
         try {
