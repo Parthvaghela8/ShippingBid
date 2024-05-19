@@ -70,4 +70,14 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
+        boolean deleted = customerService.deleteCustomer(id);
+        if (deleted) {
+            return ResponseEntity.ok("Customer deleted successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

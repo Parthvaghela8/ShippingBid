@@ -63,7 +63,7 @@ public class ShipperController {
     @PostMapping("/save")
     public ResponseEntity<Long> saveShipper(@RequestBody Shipper shipper) {
         // Log the received customer object and its userId
-        System.out.println("Received Customer: " + shipper);
+        System.out.println("Received Shipper: " + shipper);
         System.out.println("Received userId: " + shipper.getUserId());
 
         // Ensure userId is set in the Customer object
@@ -76,5 +76,15 @@ public class ShipperController {
 
         // Return the customerId in the response body
         return ResponseEntity.ok(savedShipper.getShipperId());
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable Long id) {
+        boolean deleted = shipperService.deleteShipper(id);
+        if (deleted) {
+            return ResponseEntity.ok("Shipper deleted successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

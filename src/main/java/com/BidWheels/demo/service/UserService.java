@@ -25,4 +25,12 @@ public class UserService {
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public boolean deleteUser(Long id) {
+        if (userRepository.existsById(Math.toIntExact(id))) {
+            userRepository.deleteById(Math.toIntExact(id));
+            return true;
+        }
+        return false;
+    }
 }
