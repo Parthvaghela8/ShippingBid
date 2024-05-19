@@ -9,7 +9,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(){
-        return "Welcome To Shipping Bids projects";
+        return "Welcome To Shipping Bids projects By Umang";
     }
 
     @GetMapping("/auth/code")
