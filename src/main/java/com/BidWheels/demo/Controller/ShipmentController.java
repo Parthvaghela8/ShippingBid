@@ -167,7 +167,7 @@ public class ShipmentController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Shipment not found with ID: " + id);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting shipment");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 }

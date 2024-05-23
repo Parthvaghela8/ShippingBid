@@ -15,4 +15,5 @@ import java.util.List;
 
 public interface BidsRepository extends JpaRepository<Bids, Long> {
     List<Bids> findByShipmentId(Long shipmentId);
+    void deleteByShipmentId(Long shipmentId);
 }
