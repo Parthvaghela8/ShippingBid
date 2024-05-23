@@ -25,13 +25,13 @@ public class WebConfig {
         config.addAllowedOrigin("https://127.0.0.1:8080");
         config.addAllowedOrigin("https://shippingwars.projects.bbdgrad.com");
 
-//        config.addAllowedHeader("*");
-//
-//        config.addAllowedMethod("*");
+       config.addAllowedHeader("*");
 
-        config.getAllowedHeaders();
-        config.getAllowCredentials();
-        config.getAllowedMethods();
+       config.addAllowedMethod("*");
+
+        // config.getAllowedHeaders();
+        // config.getAllowCredentials();
+        // config.getAllowedMethods();
 
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
