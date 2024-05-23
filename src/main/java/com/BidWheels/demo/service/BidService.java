@@ -2,6 +2,7 @@ package com.BidWheels.demo.service;
 
 import com.BidWheels.demo.Model.Bids;
 import com.BidWheels.demo.Repositry.BidsRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,5 +85,9 @@ public class BidService {
             // Handle exceptions (e.g., log, throw custom exception)
             throw new RuntimeException("Error deleting bid with ID: " + id, e);
         }
+    }
+    @Transactional
+    public void deleteBidsByShipmentId(Long shipmentId) {
+        bidRepository.deleteByShipmentId(shipmentId);
     }
 }
