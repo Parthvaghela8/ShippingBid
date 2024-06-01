@@ -100,7 +100,7 @@ public class GithubTokenAuthentication extends OncePerRequestFilter {
 
     private boolean isPublic(String url)
     {
-//        return Objects.equals(url, "/auth/code") || Objects.equals(url, "/");
-        return true;
+        return Objects.equals(url, "/auth/code") || Objects.equals(url, "/");
+//        return true;
     }
 }
