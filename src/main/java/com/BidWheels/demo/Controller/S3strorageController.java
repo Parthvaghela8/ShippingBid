@@ -27,79 +27,18 @@ public class S3strorageController {
     }
 
     @PostMapping("/upload")
-    public String uploadPhotoToImage(@RequestPart("file") MultipartFile file) {
+    public String uploadPhoto(@RequestPart("file") MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        log.info("Received request to upload photo to Profiles folder. File Name: {}, Content Type: {}, File Size: {} bytes",
+        log.info("Received request to upload photo to image folder. File Name: {}, Content Type: {}, File Size: {} bytes",
                 fileName, file.getContentType(), file.getSize());
 
-        String fileUrl = s3storage.uploadPhotoToProfiles(file);
+        String fileUrl = s3storage.uploadPhotoToShippments(file);
 
         if (fileUrl != null) {
             return fileUrl;
         } else {
-            return "Failed to upload photo to Profiles folder.";
+            return "Failed to upload photo to image folder.";
         }
     }
 
-
-//    @PostMapping("/uploadPhotoToFoodPost")
-//    public String uploadPhotoToFoodPost(@RequestPart("file") MultipartFile file) {
-//        String fileName = file.getOriginalFilename();
-//        log.info("Received request to upload photo to Profiles folder. File Name: {}, Content Type: {}, File Size: {} bytes",
-//                fileName, file.getContentType(), file.getSize());
-//
-//        String fileUrl = s3storage.uploadPhotoToFoodPost(file);
-//
-//        if (fileUrl != null) {
-//            return "Photo uploaded successfully to Profiles folder. URL: " + fileUrl;
-//        } else {
-//            return "Failed to upload photo to Profiles folder.";
-//        }
-//    }
-
-    @GetMapping("/downloadFromProfiles")
-    public ResponseEntity<InputStreamResource> downloadFromProfiles(@RequestParam String fileName) {
-        log.info("Received request to download file '{}' from Profiles folder.", fileName);
-
-        File file = s3storage.downloadFileFromImage(fileName);
-        if (file != null) {
-            try {
-                InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-                        .contentLength(file.length())
-                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                        .body(resource);
-            } catch (FileNotFoundException e) {
-                log.error("File '{}' not found in Profiles folder.", fileName);
-                return ResponseEntity.notFound().build();
-            }
-        } else {
-            log.error("Failed to download file '{}' from Profiles folder.", fileName);
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-//    @GetMapping("/downloadFromFoodPost")
-//    public ResponseEntity<InputStreamResource> downloadFromFoodPost(@RequestParam String fileName) {
-//        log.info("Received request to download file '{}' from FoodPost folder.", fileName);
-//
-//        File file = s3storage.downloadFileFromFoodPost(fileName);
-//        if (file != null) {
-//            try {
-//                InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-//                return ResponseEntity.ok()
-//                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
-//                        .contentLength(file.length())
-//                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-//                        .body(resource);
-//            } catch (FileNotFoundException e) {
-//                log.error("File '{}' not found in FoodPost folder.", fileName);
-//                return ResponseEntity.notFound().build();
-//            }
-//        } else {
-//            log.error("Failed to download file '{}' from FoodPost folder.", fileName);
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 }
