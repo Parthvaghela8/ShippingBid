@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.UUID;
 
 @Service
 public class S3storage {
@@ -21,7 +22,8 @@ public class S3storage {
 
     public String uploadPhotoToShippments(MultipartFile file) {
         String fileName = file.getOriginalFilename();
-        String keyName = "image/" + fileName;
+        String uniqueFileName = UUID.randomUUID().toString() + "_" + fileName;
+        String keyName = "image/" + uniqueFileName;
         return uploadPhoto("s3instancepro",keyName, file);
     }
 
