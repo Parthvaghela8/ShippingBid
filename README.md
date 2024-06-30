@@ -1,7 +1,7 @@
 # Terraform AWS EC2 Instance Provisioning 
  
 This Terraform script automates the provisioning of an Amazon EC2 instance in the specified region with the default profile. 
-
+ 
 ## Terraform Configuration
 
 ### Provider Configuration
